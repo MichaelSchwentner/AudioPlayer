@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     // Audioplayer
     private lateinit var btnPlayAudio : Button
     private lateinit var btnPauseAudio : Button
-    var mediaPlayer : MediaPlayer? = null
+    var mediaPlayer : MediaPlayer = MediaPlayer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +31,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun pauseAudio() {
-        if (mediaPlayer!!.isPlaying){
-            mediaPlayer!!.stop()
-            mediaPlayer!!.reset()
-            mediaPlayer!!.release()
+        if (mediaPlayer.isPlaying){
+            mediaPlayer.pause()
+            mediaPlayer.reset()
+            // mediaPlayer.release()
         }else{
             Toast.makeText(this,"Audio has not played", Toast.LENGTH_LONG).show()
         }
@@ -43,10 +43,10 @@ class MainActivity : AppCompatActivity() {
     private fun playAudio() {
         val audioURL = "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3"
 
-        mediaPlayer = MediaPlayer()
+
         mediaPlayer!!.setAudioStreamType(AudioManager.STREAM_MUSIC)
+        mediaPlayer!!.setDataSource(audioURL)
         try {
-            mediaPlayer!!.setDataSource(audioURL)
             mediaPlayer!!.prepare()
             mediaPlayer!!.start()
         }catch (e : IOException) {
